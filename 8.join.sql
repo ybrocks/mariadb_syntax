@@ -42,7 +42,7 @@ select distinct a.* from author a inner join post p on a.id=p.author_id;
 select * from author where id in(select author_id from post);
 -- 컬럼 위치에 서브쿼리
 -- 회원별로 본인의 쓴 글의 개수를 출력 ex)email, post_count
--- 서브쿼리
+-- 서브쿼리(대부분 join으로 대체 가능하나 아주 복잡한 쿼리의 경우 대체 불가능)
 select email, (select count(*)from post p where p.author_id=a.id) as post_count from author a;
 -- from절 위치에 서브쿼리
 select a.* from (select * from author) as a;
@@ -89,3 +89,9 @@ order by yy limit 1;
 -- 동명 동물 수 찾기 -> having
 -- 카테고리 별 도서 판매량 집계하기 -> join까지
 -- 조건에 맞는 사용자와 총 거래금액 조회하기 -> join까지
+
+-- 다중열 group by
+-- group by 첫번째컬럼, 두번째컬럼 : 첫번째컬럼으로 grouping이후에 두번째컬럼으로 grouping
+-- post테이블에서 작성자별로 구분하여 같은 제목의 글의 개수를 출력하시오
+select author_id, title, count(*) from post group by author_id, title;
+-- 재구매가 일어난 상품과 회원 리스트 구하기
