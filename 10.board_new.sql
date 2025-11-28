@@ -21,11 +21,15 @@ insert into author(email, name, password) values('qwer@qwer.qwer', '김철수', 
 insert into address(country, city, street, author_id) values('kroea', 'seoul', 'sinlim', 3);
 
 -- 글쓰기
+-- 최초생성자
 insert into post(title, contents) values('qwer', 'qwerqwer');
 insert into author_post_list(author_id, post_id) values(2, 3);
+-- 추후참여자
+-- update
 insert into author_post_list(author_id, post_id) values(1, 3);
 
 -- 글 전체목록 조회하기 : 제목, 내용, 글쓴이 이름이 조회가 되도록 select쿼리 생성
-select p.title, p.contents, a.name from post p inner join author_post_list on p.id=author_post_list.post_id inner join author a on author_post_list.author_id=a.id order by p.id;
+select p.title, p.contents, a.name from post p inner join author_post_list apl on p.id=apl.post_id inner join author a on apl.author_id=a.id order by p.id;
 
 
+select ol.id, p.name, od.product_quantity, od.product_price, (select sum(od.product_quantity * od.product_price) from order_list ol inner join order_detail od on ol.id=od.order_id where o.id=1 group by o.id) ;
